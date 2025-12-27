@@ -1,13 +1,15 @@
 /* eslint-disable no-irregular-whitespace */
 import React from "react";
 import useMacbookStore from "../store";
-import {Canvas} from "@react-three/fiber";
-import {Box,OrbitControls} from "@react-three/drei";
-
+import { Canvas } from "@react-three/fiber";
+import { Box, OrbitControls } from "@react-three/drei";
+// import { useTexture } from '@react-three/drei';
+import MacbookModel14 from "./models/Macbook-14.jsx";
+import StudioLights from "./StudioLights.jsx";
 import clsx from "clsx";
 
 const Productviewer = () => {
-const { color, scale, setColor, setScale } = useMacbookStore();
+  const { color, scale, setColor, setScale } = useMacbookStore();
 
   return (
     <section
@@ -17,8 +19,9 @@ const { color, scale, setColor, setScale } = useMacbookStore();
       <h2 className="text-5xl">Take a closer look.</h2>
 
       <div className="controls">
-        
-        <p>MacBook Pro {scale === 0.06 ? '14"' : '16"'} in {color}</p>
+        <p>
+          MacBook Pro {scale === 0.06 ? '14"' : '16"'} in {color}
+        </p>
         <div className="flex-center gap-5 mt-5">
           <div className="color-control">
             <div
@@ -61,11 +64,14 @@ const { color, scale, setColor, setScale } = useMacbookStore();
         </div>
       </div>
 
-      <Canvas  id="canvas"   camera={{position:[0,2,5], fov:50, near:0.1, far:100}}>
-        <Box positon={[0, 0, 0 ]} scale={10*scale} material-color={color}/>
+      <Canvas
+        id="canvas"
+        camera={{ position: [0, 2, 5], fov: 50, near: 0.1, far: 100 }}
+      >
+        <StudioLights />
+        <MacbookModel14 scale={0.06} position={[0, 0, 0]} />
         <OrbitControls enableZoom={false} />
       </Canvas>
-
     </section>
   );
 };
